@@ -140,8 +140,8 @@ def _aabb_from_3dtiles_bounding_volume(volume, transform=None):
 
     amin = (center - h_x_axis - h_y_axis - h_z_axis)
     amax = (center + h_x_axis + h_y_axis + h_z_axis)
-    amin.resize((4,))
-    amax.resize((4,))
+    amin.resize((4,), refcheck=False)
+    amax.resize((4,), refcheck=False)
     amin[3] = 1
     amax[3] = 1
 
@@ -159,6 +159,9 @@ def build_tileset_quadtree(out_folder, aabb, tilesets, base_transform, inv_base_
     for tileset in tilesets:
         if is_tileset_inside(tileset, aabb):
             insides += [tileset]
+
+    print("-------tilesets--------", len(tilesets))
+    print("-------Insides--------", len(insides))
 
     quadtree_diag = np.linalg.norm(aabb[1][:2] - aabb[0][:2])
 
